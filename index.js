@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import * as dotenv from 'dotenv';
 
 import { dbConfig } from './src/configs/keys';
+import { authentification, profile } from './src/routes'
 
 const port = 5000 || process.env.PORT;
 
@@ -11,10 +12,13 @@ const port = 5000 || process.env.PORT;
  * Body parser config
  */
 const app = express();
+dotenv.config({ silent: true });
 app.use(bodyParser.json({
   limit: '2000kb',
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/api/v1/', authentification);
+app.use('/api/v1/', profile);
 
 /**
  * server config
